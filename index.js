@@ -9,9 +9,9 @@ const render = (data) => {
   const {
     main, name, sys, weather,
   } = data;
-  const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${
+  const icon = `https://openweathermap.org/img/wn/${
     weather[0].icon
-  }.svg`;
+  }@2x.png`;
 
   const li = document.createElement('li');
   li.classList.add('city');
@@ -48,6 +48,7 @@ form.addEventListener('submit', (e) => {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
+      if (data.cod === '404') return;
       array.push(data);
       localStorage.setItem('data', JSON.stringify(array));
       render(data);
